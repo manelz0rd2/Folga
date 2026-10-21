@@ -3,7 +3,7 @@ set -euo pipefail
 
 cd "$(dirname "$0")/.."
 
-echo "Folga 0.1.7 — preparação do pacote de teste para macOS"
+echo "Folga 0.1.8 — preparação do pacote de teste para macOS"
 echo "Arquitetura detectada: $(uname -m)"
 echo
 

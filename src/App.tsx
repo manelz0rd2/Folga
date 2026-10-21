@@ -49,6 +49,7 @@ function App() {
   const [availableDisks, setAvailableDisks] = useState<NativeDisk[]>([]);
   const [selectedMount, setSelectedMount] = useState("");
   const selectedSize = useMemo(() => categories.filter(c => c.selected).reduce((sum, c) => sum + c.size, 0), [categories]);
+  const docsPreview = import.meta.env.DEV && new URLSearchParams(window.location.search).get("preview") === "docs";
 
   const showToast = (message: string) => {
     setToast(message);
@@ -56,7 +57,28 @@ function App() {
   };
 
   useEffect(() => {
-    if (!hasNativeRuntime()) return;
+    if (!docsPreview) return;
+    const gb = 1024 ** 3;
+    const previewFolders: NativeFolder[] = [
+      ["Usuários", "C:\\Users", 86.4, 182340], ["Program Files", "C:\\Program Files", 38.7, 46620],
+      ["Windows", "C:\\Windows", 31.2, 132805], ["ProgramData", "C:\\ProgramData", 14.8, 28751],
+      ["Projetos", "C:\\Projetos", 11.6, 19542], ["Downloads", "C:\\Users\\Emanuel\\Downloads", 8.9, 1284],
+      ["Fotos", "C:\\Users\\Emanuel\\Pictures", 6.5, 4930], ["Vídeos", "C:\\Users\\Emanuel\\Videos", 4.7, 182]
+    ].map(([name,path,size,count]) => ({ name:String(name), path:String(path), isDir:true, sizeBytes:Number(size)*gb, fileCount:Number(count) }));
+    const names = ["biblioteca-musical.flac","gravacao.mov","modelo-ia.gguf","arquivo-fotos.zip","projeto.psd","video-final.mp4","backup.7z","manual.pdf","instalador.msi","samples.wav","catalogo.raw","dados.bin","documentario.mkv","colecao.zip","apresentacao.pptx","imagem.png","sistema.dll","mixagem.aiff","livro.pdf","pacote.iso","captura.webm","planilha.xlsx","foto.jpg","modelo.bin","arquivo.rar","trilha.mp3","setup.exe","texto.docx"];
+    const previewFiles: NativeLargeFile[] = names.map((name,index) => ({ name, path:`C:\\Users\\Emanuel\\Documentos\\${name}`, sizeBytes:(5.8-index*.17)*gb, modifiedAt:0 }));
+    setAvailableDisks([{name:"Disco Local",mountPath:"C:\\",totalBytes:512*gb,availableBytes:176.3*gb}]);
+    setSelectedMount("C:\\");
+    setStorage({total:512,used:335.7,free:176.3,reclaimable:18.6,device:"Este computador · Disco Local (C:)",scannedAt:"Agora mesmo"});
+    setFolders(previewFolders); setTreemapFiles(previewFiles); setScannedFiles(426454); setScannedRoot("C:\\"); setHasAnalyzed(true);
+    setBigFiles(previewFiles.slice(0,3).map(file=>({name:file.name,path:file.path,size:bytesToGB(file.sizeBytes),kind:file.name.split(".").pop()!.toUpperCase(),age:"Encontrado agora"})));
+    setCategories([{id:"temp",title:"Arquivos temporários",description:"C:\\Windows\\Temp",size:7.8,count:18324,risk:"safe",selected:true},{id:"downloads",title:"Downloads antigos",description:"C:\\Users\\Emanuel\\Downloads",size:8.9,count:1284,risk:"review",selected:false},{id:"system",title:"Arquivos do sistema",description:"C:\\Windows",size:1.9,count:382,risk:"care",selected:false}]);
+    setDetectedAiTools([{name:"Ollama",path:"C:\\Users\\Emanuel\\.ollama",sizeBytes:9.4*gb,fileCount:8,running:true},{name:"LM Studio",path:"C:\\Users\\Emanuel\\.lmstudio",sizeBytes:4.8*gb,fileCount:3,running:false}]);
+    setMetrics({cpuPercent:21,totalMemoryBytes:32*gb,usedMemoryBytes:13.2*gb,processes:[{name:"Folga",cpuPercent:4.2,memoryBytes:.18*gb},{name:"Microsoft Edge",cpuPercent:8.1,memoryBytes:2.4*gb}]});
+  }, [docsPreview]);
+
+  useEffect(() => {
+    if (docsPreview || !hasNativeRuntime()) return;
     Promise.all([getDisks(), getPlatformInfo()]).then(([disks, info]) => {
       setAvailableDisks(disks);
       const normalizedRoot = info.defaultScanRoot.toLowerCase();
@@ -68,7 +90,7 @@ function App() {
     }).catch(() => showToast("Não foi possível listar os discos agora."));
     scanAiTools().then(setDetectedAiTools).catch(() => undefined);
     getInstalledApps().then(setInstalledApps).catch(() => undefined);
-  }, []);
+  }, [docsPreview]);
 
   useEffect(() => {
     if (!hasNativeRuntime() || (active !== "monitor" && !(active === "overview" && hasAnalyzed))) return;
@@ -256,6 +278,7 @@ function layoutTreemap(items: NativeFolder[]): TreemapItem[] {
       running += Math.max(group[split - 1].sizeBytes, 1);
       if (running >= total / 2) break;
     }
+    split = Math.min(split, group.length - 1);
     const first = group.slice(0, split);
     const second = group.slice(split);
     const firstTotal = first.reduce((sum, item) => sum + Math.max(item.sizeBytes, 1), 0);

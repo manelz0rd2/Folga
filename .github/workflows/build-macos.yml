@@ -34,7 +34,7 @@ jobs:
           cp -R "$APP" "$STAGING/Folga.app"
           ln -s /Applications "$STAGING/Applications"
           for attempt in 1 2 3; do
-            hdiutil create -volname Folga -srcfolder "$STAGING" -ov -format UDZO "$DMG_DIR/Folga_0.1.7_universal.dmg" && exit 0
+            hdiutil create -volname Folga -srcfolder "$STAGING" -ov -format UDZO "$DMG_DIR/Folga_0.1.8_universal.dmg" && exit 0
             killall diskimages-helper 2>/dev/null || true
             sleep 5
           done

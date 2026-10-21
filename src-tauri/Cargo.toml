@@ -1,6 +1,6 @@
 [package]
 name = "folga"
-version = "0.1.7"
+version = "0.1.8"
 description = "Visualizador e limpador de armazenamento para Windows e macOS"
 authors = ["Emanuel Pereira Fraga"]
 edition = "2021"

@@ -1,4 +1,4 @@
-FOLGA 0.1.7 — TESTE NO macOS
+FOLGA 0.1.8 — TESTE NO macOS
 
 Este pacote contém o projeto que gera o aplicativo nativo e o DMG no próprio Mac.
 O DMG não pode ser produzido corretamente no Windows.

@@ -1,5 +1,12 @@
 # Histórico de versões
 
+## 0.1.8 — 21 de outubro de 2026
+
+- corrige um travamento do mapa com muitos arquivos de tamanhos próximos;
+- atualiza as capturas da visão geral e do mapa do disco;
+- renova a frase principal e simplifica a pontuação do README;
+- torna o pacote universal do macOS compatível com Apple Silicon e Intel.
+
 ## 0.1.7 — 21 de outubro de 2026
 
 - unifica navegador de arquivos e mapa do disco na mesma tela;

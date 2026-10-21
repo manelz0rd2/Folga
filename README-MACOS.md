@@ -1,4 +1,4 @@
-# Folga 0.1.7 para macOS — pacote de teste
+# Folga 0.1.8 para macOS — pacote de teste
 
 O instalador equivalente ao MSI do Windows é o arquivo `.dmg`. Ele precisa ser compilado em um Mac porque contém binários nativos e um pacote `.app` específico do sistema. Este pacote gera uma versão nativa para a arquitetura do Mac usado no teste (Apple Silicon ou Intel).
 

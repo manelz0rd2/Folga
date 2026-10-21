@@ -4,10 +4,10 @@
 
 <h1 align="center">FOLGA</h1>
 
-<p align="center"><strong>Veja o que ocupa espaço. Limpe com contexto.</strong></p>
+<p align="center"><strong>Saiba exatamente o que ocupa espaço e libere espaço com segurança.</strong></p>
 
 <p align="center">
-  <img alt="Versão" src="https://img.shields.io/badge/versão-0.1.7-111111">
+  <img alt="Versão" src="https://img.shields.io/badge/versão-0.1.8-111111">
   <img alt="Windows" src="https://img.shields.io/badge/Windows-MSI-111111">
   <img alt="macOS" src="https://img.shields.io/badge/macOS-em%20teste-6f6b63">
   <img alt="Interface" src="https://img.shields.io/badge/interface-português-111111">
@@ -16,7 +16,7 @@
 
 <p align="center"><strong>FOLGA por MANELZ0RD</strong></p>
 
-O Folga transforma o armazenamento do computador em uma interface visual e compreensível. Ele mostra pastas e arquivos por tamanho, localiza os maiores responsáveis pelo uso do disco, reúne limpezas por nível de risco e monitora recursos do sistema — sem enviar a análise para servidores externos.
+O Folga transforma o armazenamento do computador em uma interface visual e compreensível. Ele mostra pastas e arquivos por tamanho, localiza os maiores responsáveis pelo uso do disco, reúne limpezas por nível de risco e monitora recursos do sistema sem enviar a análise para servidores externos.
 
 **F**erramenta de **O**rganização e **L**impeza com **G**estão de **A**rmazenamento.
 
@@ -24,23 +24,25 @@ O Folga transforma o armazenamento do computador em uma interface visual e compr
 
 ## Download para Windows
 
-[**Baixar Folga v0.1.7 para Windows**](https://github.com/manelz0rd2/Folga/releases/download/v0.1.7/Folga-0.1.7-Windows-x64.msi)
+[**Baixar Folga v0.1.8 para Windows**](https://github.com/manelz0rd2/Folga/releases/download/v0.1.8/Folga-0.1.8-Windows-x64.msi)
 
 Abra o MSI e siga o instalador. O Folga será instalado como aplicativo desktop e criará seus atalhos no Windows. Ele não funciona como uma página hospedada e não precisa manter navegador ou servidor local aberto.
 
-O repositório guarda o código-fonte, testes e documentação. O instalador pronto fica anexado à [Release v0.1.7](https://github.com/manelz0rd2/Folga/releases/tag/v0.1.7).
+O repositório guarda o código-fonte, testes e documentação. O instalador pronto fica anexado à [Release v0.1.8](https://github.com/manelz0rd2/Folga/releases/tag/v0.1.8).
 
 ## Visão geral
 
 O Folga só apresenta números depois que você escolhe um disco e inicia a análise. A tela principal resume capacidade, espaço livre, itens que podem ser revisados, maiores arquivos, ferramentas de IA e saúde do computador.
 
-![Visão geral do Folga no Windows](screenshots/09-windows-visao-geral.jpg)
+![Visão geral do Folga no Windows](screenshots/11-windows-visao-geral.png)
 
 ## Mapa do disco
 
 O mapa reúne tudo em uma única interface. Na parte superior, você navega pelas pastas e arquivos e acompanha tamanho, quantidade de itens e porcentagem ocupada. Na parte inferior, cada arquivo ou pasta aparece como um retângulo proporcional ao espaço usado.
 
 Os blocos não exibem texto: as cores agrupam tipos semelhantes e mantêm o mosaico legível mesmo com milhares de arquivos. Ao clicar em um bloco, o Folga abre a pasta correspondente na lista superior e destaca o item representado.
+
+![Mapa do disco do Folga no Windows](screenshots/12-windows-mapa.png)
 
 ## Limpeza com contexto
 
