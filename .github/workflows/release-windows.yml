@@ -1,0 +1,55 @@
+name: Publicar Folga para Windows
+
+on:
+  push:
+    tags:
+      - "v*"
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 10.18.1
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+      - uses: dtolnay/rust-toolchain@stable
+      - name: Instalar dependências
+        run: pnpm install --frozen-lockfile
+      - name: Testar projeto
+        run: pnpm test
+      - name: Gerar MSI
+        run: pnpm tauri:windows
+      - name: Preparar arquivos da release
+        shell: pwsh
+        run: |
+          $version = "${{ github.ref_name }}" -replace '^v', ''
+          $source = Get-ChildItem "src-tauri/target/release/bundle/msi/*.msi" | Select-Object -First 1
+          $destination = "Folga-$version-Windows-x64.msi"
+          Copy-Item -LiteralPath $source.FullName -Destination $destination
+          $hash = (Get-FileHash -Algorithm SHA256 -LiteralPath $destination).Hash
+          "$hash  $destination" | Set-Content -Encoding ascii SHA256SUMS.txt
+      - name: Publicar release
+        uses: softprops/action-gh-release@v2
+        with:
+          name: Folga ${{ github.ref_name }}
+          body: |
+            Primeira versão pública do Folga para Windows.
+
+            - instalador MSI x64 em português;
+            - mapa de disco com navegador de arquivos e porcentagens;
+            - limpeza local com envio para a Lixeira;
+            - seleção de disco, arquivos grandes, aplicativos, ferramentas de IA e monitor.
+
+            A versão macOS permanece em teste e não está incluída nesta release.
+          files: |
+            Folga-*-Windows-x64.msi
+            SHA256SUMS.txt
+          fail_on_unmatched_files: true
