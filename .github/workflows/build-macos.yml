@@ -14,6 +14,8 @@ jobs:
           node-version: 22
           cache: pnpm
       - uses: dtolnay/rust-toolchain@stable
+        with:
+          targets: aarch64-apple-darwin,x86_64-apple-darwin
       - name: Instalar dependências
         run: pnpm install --frozen-lockfile
       - name: Testar interface
@@ -21,12 +23,12 @@ jobs:
       - name: Testar backend nativo
         run: pnpm test:native
       - name: Gerar app e DMG
-        run: pnpm tauri:macos
+        run: pnpm tauri build --config src-tauri/tauri.macos.conf.json --target universal-apple-darwin
       - name: Publicar pacote para teste
         uses: actions/upload-artifact@v4
         with:
           name: Folga-macOS
           path: |
-            src-tauri/target/release/bundle/dmg/*.dmg
-            src-tauri/target/release/bundle/macos/*.app
+            src-tauri/target/universal-apple-darwin/release/bundle/dmg/*.dmg
+            src-tauri/target/universal-apple-darwin/release/bundle/macos/*.app
           if-no-files-found: error
