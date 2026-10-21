@@ -42,7 +42,7 @@ O mapa reúne tudo em uma única interface. Na parte superior, você navega pela
 
 Os blocos não exibem texto: as cores agrupam tipos semelhantes e mantêm o mosaico legível mesmo com milhares de arquivos. Ao clicar em um bloco, o Folga abre a pasta correspondente na lista superior e destaca o item representado.
 
-![Mapa do disco do Folga no Windows](screenshots/12-windows-mapa.png)
+![Mapa do disco do Folga no Windows](screenshots/12-windows-mapa.jpg)
 
 ## Limpeza com contexto
 
