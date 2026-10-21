@@ -22,8 +22,23 @@ jobs:
         run: pnpm test:ui
       - name: Testar backend nativo
         run: pnpm test:native
-      - name: Gerar app e DMG
-        run: pnpm tauri build --config src-tauri/tauri.macos.conf.json --target universal-apple-darwin
+      - name: Gerar app universal
+        run: pnpm tauri build --config src-tauri/tauri.macos.conf.json --target universal-apple-darwin --bundles app
+      - name: Gerar DMG
+        shell: bash
+        run: |
+          APP="src-tauri/target/universal-apple-darwin/release/bundle/macos/Folga.app"
+          DMG_DIR="src-tauri/target/universal-apple-darwin/release/bundle/dmg"
+          STAGING="$(mktemp -d)"
+          mkdir -p "$DMG_DIR"
+          cp -R "$APP" "$STAGING/Folga.app"
+          ln -s /Applications "$STAGING/Applications"
+          for attempt in 1 2 3; do
+            hdiutil create -volname Folga -srcfolder "$STAGING" -ov -format UDZO "$DMG_DIR/Folga_0.1.7_universal.dmg" && exit 0
+            killall diskimages-helper 2>/dev/null || true
+            sleep 5
+          done
+          exit 1
       - name: Publicar pacote para teste
         uses: actions/upload-artifact@v4
         with:
