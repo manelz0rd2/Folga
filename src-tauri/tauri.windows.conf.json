@@ -1,0 +1,14 @@
+{
+  "bundle": {
+    "targets": ["msi"],
+    "shortDescription": "Mais espaço no PC, sem sustos.",
+    "longDescription": "Visualize o uso do disco, encontre arquivos grandes e limpe com contexto e segurança.",
+    "windows": {
+      "webviewInstallMode": { "type": "offlineInstaller" },
+      "wix": {
+        "language": "pt-BR",
+        "upgradeCode": "a507f846-358d-4b91-96d7-4010e38f98e5"
+      }
+    }
+  }
+}

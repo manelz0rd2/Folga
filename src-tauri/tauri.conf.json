@@ -1,0 +1,44 @@
+{
+  "$schema": "https://schema.tauri.app/config/2",
+  "productName": "Folga",
+  "version": "0.1.7",
+  "identifier": "com.manelzord.folga",
+  "build": {
+    "beforeDevCommand": "pnpm dev",
+    "devUrl": "http://localhost:1420",
+    "beforeBuildCommand": "pnpm build",
+    "frontendDist": "../dist"
+  },
+  "app": {
+    "windows": [{
+      "title": "Folga",
+      "width": 1280,
+      "height": 820,
+      "minWidth": 1060,
+      "minHeight": 720,
+      "decorations": true,
+      "transparent": false,
+      "resizable": true,
+      "center": true
+    }],
+    "security": { "csp": null }
+  },
+  "bundle": {
+    "active": true,
+    "targets": "all",
+    "icon": [
+      "icons/32x32.png",
+      "icons/128x128.png",
+      "icons/128x128@2x.png",
+      "icons/icon.icns",
+      "icons/icon.ico"
+    ],
+    "category": "Utility",
+    "shortDescription": "Mais espaço, sem sustos.",
+    "longDescription": "Visualize o uso do disco, encontre arquivos grandes e limpe com contexto e segurança.",
+    "macOS": { "minimumSystemVersion": "13.0" },
+    "windows": {
+      "webviewInstallMode": { "type": "downloadBootstrapper" }
+    }
+  }
+}

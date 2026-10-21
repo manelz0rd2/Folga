@@ -1,0 +1,27 @@
+[package]
+name = "folga"
+version = "0.1.7"
+description = "Visualizador e limpador de armazenamento para Windows e macOS"
+authors = ["Emanuel Pereira Fraga"]
+edition = "2021"
+
+[lib]
+name = "folga_lib"
+crate-type = ["staticlib", "cdylib", "rlib"]
+
+[build-dependencies]
+tauri-build = { version = "2", features = [] }
+
+[dependencies]
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+tauri = { version = "2", features = [] }
+trash = "5"
+sysinfo = "0.32"
+walkdir = "2"
+
+[target.'cfg(windows)'.dependencies]
+winreg = "0.56"
+win-icon-extractor = { version = "0.3", features = ["png", "resize"] }
+base64 = "0.22"
+

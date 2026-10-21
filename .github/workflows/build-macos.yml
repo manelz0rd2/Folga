@@ -1,0 +1,34 @@
+name: Gerar Folga para macOS
+
+on:
+  workflow_dispatch:
+
+jobs:
+  dmg:
+    runs-on: macos-14
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 10
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+      - uses: dtolnay/rust-toolchain@stable
+      - name: Instalar dependências
+        run: pnpm install --frozen-lockfile
+      - name: Testar interface
+        run: pnpm test:ui
+      - name: Testar backend nativo
+        run: pnpm test:native
+      - name: Gerar app e DMG
+        run: pnpm tauri:macos
+      - name: Publicar pacote para teste
+        uses: actions/upload-artifact@v4
+        with:
+          name: Folga-macOS
+          path: |
+            src-tauri/target/release/bundle/dmg/*.dmg
+            src-tauri/target/release/bundle/macos/*.app
+          if-no-files-found: error

@@ -1,0 +1,7 @@
+{
+  "bundle": {
+    "targets": ["app", "dmg"],
+    "shortDescription": "Mais espaço no Mac, sem sustos.",
+    "macOS": { "minimumSystemVersion": "13.0" }
+  }
+}
